@@ -344,7 +344,7 @@ let config = {
                                 name: 'Keyword search',
                                 layerId: 'climateActionMap',
                                 symbologyExpanded: true,
-                                entryIndex: 0
+                                sublayerIndex: 0
                             }
                         ]
                     }
@@ -739,7 +739,7 @@ let config = {
                                 name: 'Recherche de mot cl?',
                                 layerId: 'climateActionMap',
                                 symbologyExpanded: true,
-                                entryIndex: 1
+                                sublayerIndex: 1
                             }
                         ]
                     }

@@ -615,12 +615,12 @@ let config = {
                                     {
                                         layerId: 'EZ',
                                         name: 'Ecozone',
-                                        entryIndex: 33
+                                        sublayerIndex: 33
                                     },
                                     {
                                         layerId: 'EZ',
                                         name: 'Ecozone boundary',
-                                        entryIndex: 34
+                                        sublayerIndex: 34
                                     }
                                 ]
                             },
@@ -635,7 +635,7 @@ let config = {
                             {
                                 name: 'Conserved areas',
                                 layerId: 'Conserved_Areas',
-                                entryIndex: 32
+                                sublayerIndex: 32
                             },
                             {
                                 name: 'Releases of lead to water by facility',
@@ -660,7 +660,7 @@ let config = {
                             {
                                 name: 'Greenhouse gas emissions from large facilities',
                                 layerId: 'AirEmissions_GHG',
-                                entryIndex: 10
+                                sublayerIndex: 10
                             }
                         ]
                     }
