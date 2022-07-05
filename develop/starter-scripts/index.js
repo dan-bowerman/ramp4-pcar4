@@ -1,16 +1,3 @@
-// TODO: Location for version string needs to be finalized
-// document.getElementById('ramp-version').innerText =
-//     'v.' +
-//     RAMP.version.major +
-//     '.' +
-//     RAMP.version.minor +
-//     '.' +
-//     RAMP.version.patch +
-//     ' [#' +
-//     RAMP.version.hash.slice(0, 6) +
-//     ']  -  built on ' +
-//     new Date(RAMP.version.timestamp).toLocaleDateString();
-
 window.debugInstance = null;
 
 let config = {
@@ -278,7 +265,7 @@ let config = {
                     id: 'WaterQuantity',
                     layerType: 'esri-map-image',
                     url: 'https://maps-cartes.ec.gc.ca/arcgis/rest/services/CESI/MapServer',
-                    layerEntries: [
+                    sublayers: [
                         {
                             index: 1,
                             name: 'Water quantity child',
@@ -306,7 +293,7 @@ let config = {
                         visibility: true
                     },
                     metadata: {
-                        url: 'https://raw.githubusercontent.com/ramp4-pcar4/ramp4-pcar4/master/README.md',
+                        url: 'https://raw.githubusercontent.com/ramp4-pcar4/ramp4-pcar4/main/README.md',
                         name: 'Read Me!'
                     },
                     customRenderer: {} // just to chill things out. real ramp will have all properties defaulted and filled in
@@ -315,7 +302,7 @@ let config = {
                     id: 'WaterQuality',
                     layerType: 'esri-map-image',
                     url: 'https://maps-cartes.ec.gc.ca/arcgis/rest/services/CESI/MapServer',
-                    layerEntries: [
+                    sublayers: [
                         {
                             index: 5,
                             state: {
@@ -345,13 +332,14 @@ let config = {
                 {
                     id: 'WFSLayer',
                     layerType: 'ogc-wfs',
-                    url: 'https://geo.weather.gc.ca/geomet-beta/features/collections/hydrometric-stations/items?startindex=7740',
+                    url: 'https://api.weather.gc.ca//collections/ahccd-trends/items?measurement_type__type_mesure=total_precip&period__periode=Ann&startindex=0&limit=1000&province__province=on',
+                    xyInAttribs: true,
                     state: {
                         visibility: true
                     },
                     customRenderer: {},
                     metadata: {
-                        url: 'https://raw.githubusercontent.com/ramp4-pcar4/ramp4-pcar4/master/README.md'
+                        url: 'https://raw.githubusercontent.com/ramp4-pcar4/ramp4-pcar4/main/README.md'
                     },
                     fixtures: {
                         details: {
@@ -359,30 +347,6 @@ let config = {
                         }
                     }
                 }
-                /*
-            {
-                id: 'TestTile',
-                layerType: 'esri-tile',
-                url: 'https://services.arcgisonline.com/arcgis/rest/services/USA_Topo_Maps/MapServer',
-                state: {
-                    opacity: 1,
-                    visibility: true
-                },
-                customRenderer: {} // just to chill things out. real ramp will have all properties defaulted and filled in
-            },
-            {
-                "id": "CanGRID_tmean_MAM_en",
-                "layerType": "ogc-wms",
-                "url": "https://geo.weather.gc.ca/geomet-climate?SERVICE=WMS&VERSION=1.3.0",
-                "name": "Total precipitation",
-                "state": {
-                    "opacity": 0.85,
-                    "visibility": true
-                },
-                "layerEntries": [{"id": "CANGRD.TREND.TM_SPRING" }],
-                "featureInfoMimeType": "application/json"
-            }
-            */
             ],
             fixtures: {
                 legend: {
@@ -401,7 +365,7 @@ let config = {
                                             {
                                                 layerId: 'WaterQuantity',
                                                 name: 'Water Quantity in Nested Group',
-                                                entryIndex: 1,
+                                                sublayerIndex: 1,
                                                 controls: [
                                                     'metadata',
                                                     'boundaryZoom',
@@ -416,12 +380,12 @@ let config = {
                                             {
                                                 layerId: 'WaterQuantity',
                                                 name: 'CO2 in Nested Group',
-                                                entryIndex: 9
+                                                sublayerIndex: 9
                                             },
                                             {
                                                 layerId: 'WaterQuality',
                                                 name: 'Water Quality in Nested Group',
-                                                entryIndex: 5
+                                                sublayerIndex: 5
                                             }
                                         ]
                                     }
@@ -451,16 +415,15 @@ let config = {
                         'basemap',
                         'export',
                         'layer-reorder'
-                    ],
-
-                    temporaryButtons: [
-                        'details-layers',
-                        'details-items',
-                        'grid',
-                        'settings'
                     ]
                 },
                 mapnav: { items: ['fullscreen', 'help', 'home', 'basemap'] },
+                details: {
+                    panelWidth: {
+                        default: 350,
+                        'details-items': 400
+                    }
+                },
                 export: {
                     title: {
                         value: 'All Your Base are Belong to Us',
@@ -472,14 +435,16 @@ let config = {
                     fileName: 'ramp-pcar-4-map-carte'
                 },
                 geosearch: {
-                    geoNames:
-                        'https://geogratis.gc.ca/services/geoname/@{language}/geonames.json',
-                    geoLocation:
-                        'https://geogratis.gc.ca/services/geolocation/@{language}/locate',
-                    geoTypes:
-                        'https://geogratis.gc.ca/services/geoname/@{language}/codes/concise.json',
-                    geoProvince:
-                        'https://geogratis.gc.ca/services/geoname/@{language}/codes/province.json'
+                    serviceUrls: {
+                        geoNames:
+                            'https://geogratis.gc.ca/services/geoname/@{language}/geonames.json',
+                        geoLocation:
+                            'https://geogratis.gc.ca/services/geolocation/@{language}/locate',
+                        geoTypes:
+                            'https://geogratis.gc.ca/services/geoname/@{language}/codes/concise.json',
+                        geoProvince:
+                            'https://geogratis.gc.ca/services/geoname/@{language}/codes/province.json'
+                    }
                 }
             },
             system: { animate: true }
@@ -502,7 +467,8 @@ const rInstance = RAMP.createInstance(
 window.debugInstance = rInstance;
 
 rInstance.fixture.addDefaultFixtures().then(() => {
-    rInstance.panel.open('legend-panel');
+    rInstance.panel.open('legend');
+    rInstance.panel.pin('legend');
 });
 
 rInstance.$element.component('WFSLayer-Custom', {
